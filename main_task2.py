@@ -1,12 +1,6 @@
 n = int(input().strip())
 
 for i in range(n):
-    if i == 0:
-        while True:
-            line = input().strip()
-            if line == '':
-                break
-
     results = {}
 
     while True:
@@ -16,11 +10,20 @@ for i in range(n):
                 break
 
             parts = s.split()
-            if len(parts) != 4:
+            if len(parts) < 4:  # Минимум 4 элемента: номер, задача, время, состояние
                 continue
 
-            num, task, time, state = parts
-            num, task, time = int(num), int(task), int(time)
+            num = parts[0]
+            task = parts[1]
+            time = parts[2]
+            state = parts[3]
+
+            try:
+                num = int(num)
+                task = int(task)
+                time = int(time)
+            except ValueError:
+                continue
 
             if num not in results:
                 results[num] = {'solved': 0, 'penalty': 0, 'tasks': {}}
